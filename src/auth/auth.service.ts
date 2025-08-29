@@ -11,7 +11,11 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<Record<string, any>> {
     const user = await this.userService.getUserByEmail(email);
-    if (!user || user.password !== password) {
+    if (
+      !user ||
+      !password ||
+      user.password !== this.userService.encrypt(password)
+    ) {
       throw new Error('Invalid credentials');
     }
 

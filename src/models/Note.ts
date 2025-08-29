@@ -4,13 +4,23 @@ import {
   Column,
   ManyToMany,
   JoinTable,
+  ManyToOne,
+  Index,
 } from 'typeorm';
 import { Tag } from './Tag';
+import { User } from './User';
 
 @Entity()
 export class Note {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @ManyToOne(() => User, (user) => user.id)
+  user: User;
+
+  @Index()
+  @Column()
+  title: string;
 
   @Column()
   content: string;

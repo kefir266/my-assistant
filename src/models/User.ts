@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Optional } from '@nestjs/common';
+import { Note } from './Note';
 
 @Entity()
 export class User {
@@ -18,6 +19,9 @@ export class User {
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
+
+  @OneToMany(() => Note, (note) => note.user)
+  notes: Note[];
 
   @Column()
   @Optional()
