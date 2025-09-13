@@ -1,4 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import * as crypto from 'crypto';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  AfterInsert,
+  AfterUpdate,
+  BeforeInsert,
+} from 'typeorm';
 import { Optional } from '@nestjs/common';
 import { Note } from './Note';
 
@@ -26,4 +35,15 @@ export class User {
   @Column()
   @Optional()
   tokens?: string;
+
+  @AfterInsert()
+  @AfterUpdate()
+  removePassword() {
+    this.password = undefined;
+  }
+
+  @BeforeInsert()
+  generateUUID() {
+    this.id = crypto.randomUUID();
+  }
 }

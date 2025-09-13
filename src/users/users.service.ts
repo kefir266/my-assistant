@@ -20,19 +20,18 @@ export class UsersService {
   }
 
   async createUser(user: Partial<User>): Promise<User> {
-    const newUser = this.userRepository.create(user);
-    if (user.password) {
-      newUser.password = this.encrypt(user.password);
-    }
+    const newUser = this.userRepository.create({
+      ...user,
+      password: user.password ? this.encrypt(user.password) : undefined,
+    });
 
-    newUser.id = crypto.randomUUID();
     return this.userRepository.save(newUser);
   }
 
   async addToken(id: string, token: string): Promise<User> {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
-      throw new Error('User not found');
+      throw new Error('UserRequest not found');
     }
     const tokens: string[] =
       (JSON.parse(user.tokens || '[]') as string[]) || [];
