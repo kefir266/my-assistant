@@ -9,5 +9,6 @@ import { TagsController } from './tags.controller';
   controllers: [TagsController],
   providers: [TagsService],
   imports: [TypeOrmModule.forFeature([Tag]), JwtModule],
+  exports: [TagsService],
 })
 export class TagsModule {}

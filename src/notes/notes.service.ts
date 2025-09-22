@@ -17,6 +17,9 @@ export class NotesService {
         user: { id: user.id },
       },
       relations: ['tags'],
+      order: {
+        createdAt: 'DESC',
+      },
     });
   }
 

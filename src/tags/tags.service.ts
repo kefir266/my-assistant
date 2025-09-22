@@ -30,4 +30,29 @@ export class TagsService {
     await this.tagRepository.save(newTag);
     return newTag;
   }
+
+  async findCreate(user: User, tags: Tag[]): Promise<Tag[]> {
+    const tagsArr: Tag[] = [];
+    for (const tag of tags) {
+      const findTag = await this.tagRepository.findOne({
+        where: {
+          name: tag.name,
+          user: { id: user.id },
+        },
+      });
+
+      if (!findTag) {
+        const newTag = this.tagRepository.create({
+          ...tag,
+          user,
+        });
+        await this.tagRepository.save(newTag);
+        tagsArr.push(newTag);
+      } else {
+        tagsArr.push(findTag);
+      }
+    }
+
+    return tagsArr;
+  }
 }
