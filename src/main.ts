@@ -9,6 +9,9 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
-  await app.listen(app.get(ConfigService).getOrThrow('PORT'));
+  const configService = app.get(ConfigService);
+  console.log('Starting ENV:', configService.get('ENV'));
+
+  await app.listen(configService.getOrThrow('PORT'));
 }
 bootstrap();

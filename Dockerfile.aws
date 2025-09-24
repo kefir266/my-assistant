@@ -1,0 +1,17 @@
+FROM node:24.1.0-alpine3.21
+
+RUN apk update && \
+  apk add --no-cache \
+  jq \
+  aws-cli
+
+WORKDIR /usr/src/app
+COPY package*.json ./
+
+RUN npm install
+COPY . .
+RUN npm run build
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
