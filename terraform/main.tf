@@ -31,3 +31,7 @@ module "Route53" {
 module "ECS" {
   source = "./ECS"
 }
+
+module "Repository" {
+  source = "./Repository"
+}

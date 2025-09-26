@@ -13,3 +13,7 @@ output "ECS_SERVICE" {
 output "ECS_CLUSTER" {
   value = module.ECS.ECS_CLUSTER
 }
+
+output "ECR_REPOSITORY" {
+  value = module.Repository.ECR_REPOSITORY
+}
