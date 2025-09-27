@@ -1,5 +1,5 @@
 output "ECS_TASK_DEFINITION" {
-  value = aws_ecs_task_definition.assistant-task.arn
+  value = aws_ecs_task_definition.assistant-task
 }
 
 output "CONTAINER_NAME" {
