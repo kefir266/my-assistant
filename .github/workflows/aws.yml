@@ -40,7 +40,7 @@ env:
   ECS_SERVICE: assistant-api # set this to your Amazon ECS service name
   ECS_CLUSTER: main-ecs-cluster # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION:
-    assistant-task # set this to the path to your Amazon ECS task definition
+    my-assistant # set this to the path to your Amazon ECS task definition
     # file, e.g. .aws/task-definition.json
   CONTAINER_NAME:
     assistant-task # set this to the name of the container in the
