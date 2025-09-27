@@ -28,8 +28,13 @@ module "Route53" {
   alb_zone_id  = module.ALB.alb_zone_id
 }
 
+module "log_groups" {
+  source = "./LogGroups"
+}
+
 module "ECS" {
   source = "./ECS"
+  log_group = module.log_groups.ecs_app_log_group
 }
 
 module "Repository" {
