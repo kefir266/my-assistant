@@ -4,3 +4,5 @@ variable "container_name" {
 }
 
 variable "log_group" {}
+variable "region" {}
+variable "secret_arn" {}

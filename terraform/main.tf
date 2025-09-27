@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "eu-west-1"
+  region = var.region
 }
 
 
@@ -32,9 +32,15 @@ module "log_groups" {
   source = "./LogGroups"
 }
 
+module "secrets_manager" {
+  source = "./SecretManager"
+}
+
 module "ECS" {
   source = "./ECS"
   log_group = module.log_groups.ecs_app_log_group
+  region = var.region
+  secret_arn = module.secrets_manager.secret_arn
 }
 
 module "Repository" {

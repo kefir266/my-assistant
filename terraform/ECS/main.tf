@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "assistant-task" {
         logDriver = "awslogs"
         options = {
           awslogs-group         = var.log_group
-          awslogs-region        = "eu-west-1"
+          awslogs-region        = var.region
           awslogs-stream-prefix = "ecs"
         }
       }
@@ -51,6 +51,12 @@ resource "aws_ecs_task_definition" "assistant-task" {
         {
           containerPort = 3000
           hostPort      = 3000
+        }
+      ]
+      environment: [
+        {
+          "name" = "SECRET_ARN",
+          "value" = var.secret_arn
         }
       ]
     }
